@@ -5,12 +5,17 @@ const requestModule = {
             body: {}
         }
 
-        parser.parseHeader(buffer.slice(1,14), protocol);
+        console.log('Buffer de entrada: ' + buffer.toString('hex'));
+
+        await parser.parseHeader(buffer.slice(1,13), protocol);
+        await parser.parseBody(buffer.slice(13,17), protocol);
+
+        console.log(protocol);
     },
 };
 
 const parser = {
-    parseHeader: async (header,protocol) => {
+    parseHeader: async (buffer,protocol) => {
         let header = {
             deviceID: '',
             command: '',
@@ -25,17 +30,33 @@ const parser = {
             }
         }
 
-        header.deviceID = header.slice(0,4).toString('hex');
-        header.command = header.slice(4,5).toString('hex');
-        header.packageLength = header.slice(5,7).toString('hex');
-        header.utc_time.year = header.slice(7,8).toString();
-        header.utc_time.month = header.slice(8,9).toString();
-        header.utc_time.day = header.slice(9,10).toString();
-        header.utc_time.hour = header.slice(10,11).toString();
-        header.utc_time.minute = header.slice(11,12).toString();
-        header.utc_time.second = header.slice(12,13).toString();
+        header.deviceID = buffer.slice(0,4).toString('hex');
+        header.command = buffer.slice(4,5).toString('hex');
+        header.packageLength = buffer.slice(5,6).toString('hex');
+        header.utc_time.year = parseInt(buffer.slice(6,7).toString('hex'),16);
+        header.utc_time.month = parseInt(buffer.slice(7,8).toString('hex'),16);
+        header.utc_time.day = parseInt(buffer.slice(8,9).toString('hex'),16);
+        header.utc_time.hour = parseInt(buffer.slice(9,10).toString('hex'),16);
+        header.utc_time.minute = parseInt(buffer.slice(10,11).toString('hex'),16);
+        header.utc_time.second = parseInt(buffer.slice(11,12).toString('hex'),16);
 
         protocol.header = header;
+    },
+
+    parseBody: async (buffer, protocol) =>{
+        let body = {
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 0 ,
+        }
+
+        body.x = parseInt(buffer.slice(0,1).toString('hex'),16);
+        body.y = parseInt(buffer.slice(1,2).toString('hex'),16);
+        body.x2 = parseInt(buffer.slice(2,3).toString('hex'),16);
+        body.y2 = parseInt(buffer.slice(3,4).toString('hex'),16);
+
+        protocol.body = body;
     }
 }
 
