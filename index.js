@@ -1,4 +1,5 @@
 const net = require('net');
+const request = require('./request.js');
 
 let server = net.createServer( async (socket) => {
     
@@ -6,9 +7,7 @@ let server = net.createServer( async (socket) => {
 
         try {
             
-            console.log('------------------------------------');
-            console.log(data);
-            console.log('------------------------------------');
+            request.receiveBuffer(Buffer.from(data, 'hex'));
 
         } catch (err) {
 
