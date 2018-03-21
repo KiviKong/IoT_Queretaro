@@ -1,5 +1,5 @@
 const net = require('net');
-const request = require('./request.js');
+const request = require('./modules/request.js');
 
 let server = net.createServer( async (socket) => {
     
