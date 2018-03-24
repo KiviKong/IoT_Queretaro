@@ -1,11 +1,10 @@
 const requestModule = {
     receiveBuffer: async (buffer) => {
         let protocol = {
+	   buffer: buffer.toString('hex'),
             header: {},
             body: {}
         }
-
-        console.log('Buffer de entrada: ' + buffer.toString('hex'));
 
         await parser.parseHeader(buffer.slice(1,13), protocol);
         await parser.parseBody(buffer.slice(13,17), protocol);

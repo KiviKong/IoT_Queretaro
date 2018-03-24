@@ -6,8 +6,8 @@ let server = net.createServer( async (socket) => {
     socket.on('data', async (data) => {
 
         try {
-            
-            request.receiveBuffer(Buffer.from(data, 'hex'));
+
+            request.receiveBuffer(Buffer.from(data.toString(),'hex'));
 
         } catch (err) {
 
