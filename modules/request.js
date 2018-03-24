@@ -1,4 +1,4 @@
-const Dynamo = ('./dynamo.js');
+const Dynamo = require('./dynamo.js');
 
 const requestModule = {
     receiveBuffer: async (buffer) => {
@@ -10,7 +10,16 @@ const requestModule = {
 
         await parser.parseHeader(buffer.slice(1,13), protocol);
         await parser.parseBody(buffer.slice(13,17), protocol);
-
+        
+        switch (protocol.header.command) {
+            case '01' :
+                await Dynamo.updatePosition(protocol.header.deviceID, protocol.body.x, protocol.body.y);
+                break;
+            case '02' :
+                // .
+            // .....
+        }
+        
         console.log(protocol);
     },
 };
@@ -44,7 +53,7 @@ const parser = {
         protocol.header = header;
     },
 
-    parseBody: async (buffer, protocol) =>{
+    parseBody: async (buffer, protocol) => {
         let body = {
             x: 0,
             y: 0,

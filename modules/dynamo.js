@@ -1,8 +1,10 @@
 const aws = require('aws-sdk');
-const dynamoDB = aws.DynamoDB();
+aws.config.update({region:'us-east-2'});
+const dynamoDB = new aws.DynamoDB();
 
 const dynamoModule = {
     updatePosition: async (deviceID, x, y) => {
+        
         let params = {
             ExpressionAttributeNames: {
                 "#X": "x", 
@@ -10,20 +12,20 @@ const dynamoModule = {
             }, 
             ExpressionAttributeValues: {
                 ":x": {
-                    N: x
+                    N: x + ''
                 }, 
                 ":y": {
-                    N: y
+                    N: y + ''
                 }
             }, 
             Key: {
                 "deviceID": {
                     N: deviceID
                 }
-            }, 
+            },
             ReturnValues: "ALL_NEW", 
             TableName: "Usuario", 
-            UpdateExpression: "SET #Y = :y, SET #X = :x"
+            UpdateExpression: "SET #Y = :y, #X = :x"
         };
 
         dynamoDB.updateItem(params, (err,data) => {
@@ -34,7 +36,7 @@ const dynamoModule = {
         });
     },
     registerUser: async (user,deviceID) => {
-
+        // 
     },
 }
 
