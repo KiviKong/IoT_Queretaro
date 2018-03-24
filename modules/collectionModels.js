@@ -1,17 +1,17 @@
 const Usuario = {
-    deviceID: 45,
-    usuario: {
-        nombre: 'Kevin Castro',
-        edad: 22,
-        curp: 'KARC21312321321LKSJLK',
-        tel: '348 102 30 55'
+    "deviceID": 45,
+    "usuario": {
+        "nombre": 'Kevin Castro',
+        "edad": 22,
+        "curp": 'KARC21312321321LKSJLK',
+        "tel": '348 102 30 55'
     },
-    registro: new Date(),
-    ruta_turistica: false,
-    x: 0,
-    y: 0,
-    x2: 0,
-    y2: 0,
+    "registro": new Date(),
+    "ruta_turistica": false,
+    "x": 0,
+    "y": 0,
+    "x2": 0,
+    "y2": 0,
 };
 
 const Visitas = {
