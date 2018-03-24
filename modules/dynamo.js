@@ -35,9 +35,6 @@ const dynamoModule = {
                 console.log(data);
         });
     },
-    registerUser: async (user,deviceID) => {
-        // 
-    },
 }
 
 module.exports = dynamoModule;

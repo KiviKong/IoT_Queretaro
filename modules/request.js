@@ -11,15 +11,8 @@ const requestModule = {
         await parser.parseHeader(buffer.slice(1,13), protocol);
         await parser.parseBody(buffer.slice(13,17), protocol);
         
-        switch (protocol.header.command) {
-            case '01' :
-                await Dynamo.updatePosition(protocol.header.deviceID, protocol.body.x, protocol.body.y);
-                break;
-            case '02' :
-                // .
-            // .....
-        }
-        
+        await Dynamo.updatePosition(protocol.header.deviceID, protocol.body.x, protocol.body.y);
+               
         console.log(protocol);
     },
 };
