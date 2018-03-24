@@ -1,3 +1,5 @@
+const Dynamo = ('./dynamo.js');
+
 const requestModule = {
     receiveBuffer: async (buffer) => {
         let protocol = {
