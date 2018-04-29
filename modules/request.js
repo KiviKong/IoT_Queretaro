@@ -3,7 +3,7 @@ const Dynamo = require('./dynamo.js');
 const requestModule = {
     receiveBuffer: async (buffer) => {
         let protocol = {
-	   buffer: buffer.toString('hex'),
+	        buffer: buffer.toString('hex'),
             header: {},
             body: {}
         }
@@ -12,8 +12,8 @@ const requestModule = {
         await parser.parseBody(buffer.slice(13,17), protocol);
         
         await Dynamo.updatePosition(protocol.header.deviceID, protocol.body.x, protocol.body.y);
-               
-        console.log(protocol);
+            
+        return protocol;
     },
 };
 
