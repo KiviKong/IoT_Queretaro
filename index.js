@@ -23,16 +23,16 @@ io.on('connection', function(socket) {
 
 });
 
-
-
 let server = net.createServer( async (socket) => {
     
     socket.on('data', async (data) => {
 
         try {
             //console.log(data.toString('hex'));
-            request.receiveBuffer(Buffer.from(data.toString(),'hex'));
-
+            let user = await request.receiveBuffer(Buffer.from(data.toString(),'hex'));
+            let socketToFront = await sockets.get('front');
+            console.log(user);
+            socketToFront.emit('server-message', user);
         } catch (err) {
 
             console.log(err);
