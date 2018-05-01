@@ -1,5 +1,5 @@
 const request = require('./modules/request.js');
-const bufferTest = '633030303030303034353031313331323033313531373134313730313032353036336330';
+const bufferTest = '633030303030303034353031313331323033313531373134313731343061353036336330';
 
 const app = require('express')();
 const http = require('http').Server(app);
@@ -27,10 +27,11 @@ io.on('connection', (socket) => {
 const test = async () => {
 
     let buffer = Buffer.from(bufferTest,'hex');
-    let protocol = await request.receiveBuffer(Buffer.from(buffer.toString(),'hex'));
+    let user = await request.receiveBuffer(Buffer.from(buffer.toString(),'hex'));
     await sleep(5000); 
     let socketToFront = await sockets.get('front');
-    socketToFront.emit('server-message', protocol.header.deviceID);
+    console.log(user);
+    socketToFront.emit('server-message', user);
 }
 
 http.listen(8082, () => {console.log('listening front-end on port 8082')});

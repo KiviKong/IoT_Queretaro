@@ -28,12 +28,7 @@ const dynamoModule = {
             UpdateExpression: "SET #Y = :y, #X = :x"
         };
 
-        dynamoDB.updateItem(params, (err,data) => {
-            if (err)
-                console.log(err);
-            if (data)
-                console.log(data);
-        });
+        return await dynamoDB.updateItem(params).promise();
     },
 }
 
